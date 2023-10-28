@@ -37,17 +37,130 @@ struct SimpleEntry: TimelineEntry {
     let configuration: ConfigurationAppIntent
 }
 
+// Define the class with two Int fields: hour and min
+class TimePoint {
+    var hour: Int
+    var min: Int
+    var dest: String
+    
+    init(hour: Int, min: Int, dest: String) {
+        self.hour = hour
+        self.min = min
+        self.dest = dest
+    }
+}
+
 struct enhanced_timetableEntryView : View {
     var entry: Provider.Entry
+    
+    let weekdayOjikamiyaTimepoints: [Date] = {
+        var timePoints: [TimePoint] = []
+        
+        timePoints.append(TimePoint(hour: 10, min: 50, dest: "日吉"))
+        
+        // Add some TimePoint instances to the array
+        timePoints.append(TimePoint(hour: 11, min: 02, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 11, min: 14, dest: "日吉"))
+        timePoints.append(TimePoint(hour: 11, min: 26, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 11, min: 38, dest: "横浜"))
+        timePoints.append(TimePoint(hour: 11, min: 50, dest: "日吉"))
+
+        timePoints.append(TimePoint(hour: 12, min: 02, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 12, min: 14, dest: "日吉"))
+        timePoints.append(TimePoint(hour: 12, min: 26, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 12, min: 38, dest: "横浜"))
+        timePoints.append(TimePoint(hour: 12, min: 50, dest: "日吉"))
+
+        timePoints.append(TimePoint(hour: 13, min: 02, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 13, min: 14, dest: "日吉"))
+        timePoints.append(TimePoint(hour: 13, min: 26, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 13, min: 38, dest: "横浜"))
+        timePoints.append(TimePoint(hour: 13, min: 50, dest: "日吉"))
+        
+        timePoints.append(TimePoint(hour: 14, min: 02, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 14, min: 14, dest: "日吉"))
+        timePoints.append(TimePoint(hour: 14, min: 26, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 14, min: 38, dest: "横浜"))
+        timePoints.append(TimePoint(hour: 14, min: 50, dest: "日吉"))
+
+        timePoints.append(TimePoint(hour: 15, min: 02, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 15, min: 14, dest: "日吉"))
+        timePoints.append(TimePoint(hour: 15, min: 26, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 15, min: 38, dest: "横浜"))
+        timePoints.append(TimePoint(hour: 15, min: 50, dest: "日吉"))
+
+        timePoints.append(TimePoint(hour: 16, min: 02, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 16, min: 14, dest: "日吉"))
+        timePoints.append(TimePoint(hour: 16, min: 26, dest: "白金高輪"))
+        timePoints.append(TimePoint(hour: 16, min: 38, dest: "横浜"))
+
+        timePoints.append(TimePoint(hour: 17, min: 0, dest: "日吉"))
+        
+        timePoints.append(TimePoint(hour: 22, min: 39, dest: "日吉"))
+        timePoints.append(TimePoint(hour: 23, min: 20, dest: "横浜"))
+        timePoints.append(TimePoint(hour: 23, min: 58, dest: "白金高輪"))
+        
+        var dates: [Date] = []
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        
+        for time in timePoints {
+            if let date = calendar.date(bySettingHour: time.hour, minute: time.min, second: 0, of: today) {
+                dates.append(date)
+            }
+        }
+        
+        return dates
+    }()
+
 
     var body: some View {
+        let closestDate = fetchClosestTimePoint()
+        
+        let components = updateCountdown()
+        let futureDate = Calendar.current.date(byAdding: .minute, value: components.minute!, to: Date())!
+        
         VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Favorite Emoji:")
-            Text(entry.configuration.favoriteEmoji)
+            HStack {
+                Circle()
+                    .fill(Color.green)
+                    .frame(width: 20, height: 10)
+                Text("王子神谷\n赤羽岩淵発")
+                Text("\(closestDate) ")
+                Text(futureDate, style: .timer)
+                    .font(.system(size: 30))
+            }
         }
+    }
+    
+    func fetchClosestTimePoint() -> String {
+        let now = Date()
+        var closestTimePoint = now
+
+        for timePoint in weekdayOjikamiyaTimepoints {
+            if now < timePoint {
+                closestTimePoint = timePoint
+                break;
+            }
+        }
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "HH:mm"
+
+        return dateFormatter.string(from: closestTimePoint)
+    }
+    
+    func updateCountdown() -> DateComponents {
+        let now = Date()
+        var closestTimePoint = now
+
+        for timePoint in weekdayOjikamiyaTimepoints {
+            if now < timePoint {
+                closestTimePoint = timePoint
+                break;
+            }
+        }
+        return Calendar.current.dateComponents([.hour, .minute, .second], from: now, to: closestTimePoint)
     }
 }
 
