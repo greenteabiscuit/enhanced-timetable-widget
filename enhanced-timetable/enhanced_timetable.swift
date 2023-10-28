@@ -126,9 +126,10 @@ struct enhanced_timetableEntryView : View {
                     .fill(Color.green)
                     .frame(width: 20, height: 10)
                 Text("王子神谷\n赤羽岩淵発")
+                    .font(.system(size: 15))
                 Text("\(closestDate) ")
                 Text(futureDate, style: .timer)
-                    .font(.system(size: 30))
+                    .font(.system(size: 25))
             }
         }
     }
