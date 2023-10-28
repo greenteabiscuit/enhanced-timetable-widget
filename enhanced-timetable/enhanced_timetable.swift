@@ -118,7 +118,7 @@ struct enhanced_timetableEntryView : View {
         let closestDate = fetchClosestTimePoint()
         
         let components = updateCountdown()
-        let futureDate = Calendar.current.date(byAdding: .minute, value: components.minute!, to: Date())!
+        let futureDate = Calendar.current.date(byAdding: components, to: Date())!
         
         VStack {
             HStack {
