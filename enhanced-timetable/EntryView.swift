@@ -28,6 +28,12 @@ extension enhanced_timetable {
 extension enhanced_timetable.EntryView {
     @ViewBuilder
     private var contentView: some View {
+        let minute = Calendar.current.component(.minute, from: entry.date)
+        if minute % 2 == 0 {
+            Text("Odd!")
+        } else {
+            Text("Even!")
+        }
         if let x = Calendar.current.date(byAdding: .second, value: 1, to: entry.date) {
             Text("\(x, formatter: Self.dateFormatter)")
         }

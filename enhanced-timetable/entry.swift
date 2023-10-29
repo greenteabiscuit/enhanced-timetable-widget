@@ -21,8 +21,9 @@ extension enhanced_timetable {
         }
     }
     struct Entry: TimelineEntry {
-        var date: Date
+        var date: Date = .now
 
+        /*
         // Default initializer sets date based on current time
         init() {
             let weekdayOjikamiyaTimepoints: [Date] = {
@@ -67,6 +68,11 @@ extension enhanced_timetable {
                 timePoints.append(TimePoint(hour: 16, min: 38, dest: "横浜"))
 
                 timePoints.append(TimePoint(hour: 17, min: 0, dest: "日吉"))
+                timePoints.append(TimePoint(hour: 18, min: 27, dest: "日吉"))
+                timePoints.append(TimePoint(hour: 18, min: 28, dest: "日吉"))
+                timePoints.append(TimePoint(hour: 18, min: 29, dest: "日吉"))
+                timePoints.append(TimePoint(hour: 18, min: 30, dest: "日吉"))
+                
                 
                 timePoints.append(TimePoint(hour: 22, min: 39, dest: "日吉"))
                 timePoints.append(TimePoint(hour: 23, min: 20, dest: "横浜"))
@@ -101,6 +107,7 @@ extension enhanced_timetable {
         init(date: Date) {
             self.date = date
         }
+         */
     }
 }
 
