@@ -28,11 +28,17 @@ extension enhanced_timetable {
 extension enhanced_timetable.EntryView {
     @ViewBuilder
     private var contentView: some View {
-        if let x = Calendar.current.date(byAdding: .second, value: 1, to: entry.date) {
-            Text("\(x, formatter: Self.dateFormatter)")
+        HStack {
+            Circle()
+                .fill(Color.green)
+                .frame(width: 20, height: 10)
+            Text("王子神谷\n赤羽岩淵発")
+                .font(.system(size: 15))
+            Text("\(entry.closestDate, formatter: Self.dateFormatter)")
         }
-        // Text(entry.date.adding(.second, value: 1), style: .time)
-        Text(Calendar.current.startOfDay(for: .now), style: .timer)
+        Text(entry.closestDate, style: .timer)
+            .font(.system(size: 30))
+
     }
 }
 
