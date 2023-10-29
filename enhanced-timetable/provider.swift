@@ -35,7 +35,13 @@ extension enhanced_timetable {
             let startDate = Calendar.current.date(byAdding: .second, value: -seconds, to: currentDate)!
             let entries = (0 ..< 60).map {
                 let date = Calendar.current.date(byAdding: .second, value: $0 * 60 - 1, to: startDate)!
-                return Entry(date: date, closestDate: getClosest(x: date))
+                // Check the hour and minute to determine the string
+                let hour = Calendar.current.component(.hour, from: date)
+                let minute = Calendar.current.component(.minute, from: date)
+                
+                let isBeforeTwentyFortySix = (hour < 20) || (hour == 20 && minute < 48)
+                let randomString = isBeforeTwentyFortySix ? Calendar.current.date(byAdding: .hour, value: 3, to: date) : Calendar.current.date(byAdding: .hour, value: 5, to: date)
+                return Entry(date: date, closestDate: randomString!)
             }
             completion(.init(entries: entries, policy: .atEnd))
         }
@@ -88,6 +94,9 @@ extension enhanced_timetable {
                 timePoints.append(TimePoint(hour: 18, min: 29, dest: "日吉"))
                 timePoints.append(TimePoint(hour: 18, min: 30, dest: "日吉"))
                 
+
+                timePoints.append(TimePoint(hour: 20, min: 40, dest: "日吉"))
+                timePoints.append(TimePoint(hour: 20, min: 41, dest: "日吉"))
                 
                 timePoints.append(TimePoint(hour: 22, min: 39, dest: "日吉"))
                 timePoints.append(TimePoint(hour: 23, min: 20, dest: "横浜"))
