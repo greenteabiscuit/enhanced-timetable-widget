@@ -34,6 +34,7 @@ extension enhanced_timetable.EntryView {
         } else {
             Text("Even!")
         }
+        Text("departing next at: \(entry.closestDate, formatter: Self.dateFormatter)")
         if let x = Calendar.current.date(byAdding: .second, value: 1, to: entry.date) {
             Text("\(x, formatter: Self.dateFormatter)")
         }
