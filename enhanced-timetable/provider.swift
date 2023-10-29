@@ -32,7 +32,7 @@ extension enhanced_timetable {
         func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
             let currentDate = Date()
             let seconds = Calendar.current.component(.second, from: currentDate)
-            let startDate = Calendar.current.date(byAdding: .second, value: seconds, to: currentDate)!
+            let startDate = Calendar.current.date(byAdding: .second, value: -seconds, to: currentDate)!
             let entries = (0 ..< 60).map {
                 let date = Calendar.current.date(byAdding: .second, value: $0 * 60 - 1, to: startDate)!
                 return Entry(date: date)
