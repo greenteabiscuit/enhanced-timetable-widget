@@ -54,6 +54,84 @@ extension enhanced_timetable {
             TimePoint(hour: 23, min: 58, dest: "白金高輪"),
         ]
 
+        static var weekendSchedule: [TimePoint] = [
+            TimePoint(hour: 7, min: 31, dest: "王子神谷始発白金高輪"),
+            TimePoint(hour: 7, min: 47, dest: "王子神谷始発横浜"),
+
+            TimePoint(hour: 9, min: 17, dest: "日吉"),
+            TimePoint(hour: 9, min: 30, dest: "白金高輪"),
+            TimePoint(hour: 9, min: 48, dest: "日吉"),
+            
+            TimePoint(hour: 10, min: 00, dest: "白金高輪"),
+            TimePoint(hour: 10, min: 14, dest: "日吉"),
+            TimePoint(hour: 10, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 10, min: 38, dest: "横浜"),
+            TimePoint(hour: 10, min: 50, dest: "日吉"),
+
+            TimePoint(hour: 11, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 11, min: 14, dest: "日吉"),
+            TimePoint(hour: 11, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 11, min: 38, dest: "横浜"),
+            TimePoint(hour: 11, min: 50, dest: "日吉"),
+
+            TimePoint(hour: 12, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 12, min: 14, dest: "日吉"),
+            TimePoint(hour: 12, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 12, min: 38, dest: "横浜"),
+            TimePoint(hour: 12, min: 50, dest: "日吉"),
+
+            TimePoint(hour: 13, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 13, min: 14, dest: "日吉"),
+            TimePoint(hour: 13, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 13, min: 38, dest: "横浜"),
+            TimePoint(hour: 13, min: 50, dest: "日吉"),
+            
+            TimePoint(hour: 14, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 14, min: 14, dest: "日吉"),
+            TimePoint(hour: 14, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 14, min: 38, dest: "横浜"),
+            TimePoint(hour: 14, min: 50, dest: "日吉"),
+
+            TimePoint(hour: 15, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 15, min: 14, dest: "日吉"),
+            TimePoint(hour: 15, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 15, min: 38, dest: "横浜"),
+            TimePoint(hour: 15, min: 50, dest: "日吉"),
+
+            TimePoint(hour: 16, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 16, min: 14, dest: "日吉"),
+            TimePoint(hour: 16, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 16, min: 38, dest: "横浜"),
+            TimePoint(hour: 16, min: 50, dest: "日吉"),
+            
+            TimePoint(hour: 17, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 17, min: 14, dest: "日吉"),
+            TimePoint(hour: 17, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 17, min: 38, dest: "横浜"),
+            TimePoint(hour: 17, min: 50, dest: "日吉"),
+            
+            TimePoint(hour: 18, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 18, min: 14, dest: "日吉"),
+            TimePoint(hour: 18, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 18, min: 38, dest: "横浜"),
+            TimePoint(hour: 18, min: 50, dest: "日吉"),
+            
+            TimePoint(hour: 19, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 19, min: 29, dest: "白金高輪"),
+            TimePoint(hour: 19, min: 59, dest: "白金高輪"),
+
+            TimePoint(hour: 20, min: 06, dest: "武蔵小杉"),
+            TimePoint(hour: 20, min: 30, dest: "白金高輪"),
+            TimePoint(hour: 20, min: 59, dest: "日吉"),
+            
+            TimePoint(hour: 21, min: 59, dest: "横浜"),
+            
+            TimePoint(hour: 22, min: 28, dest: "日吉"),
+            TimePoint(hour: 23, min: 08, dest: "白金高輪"),
+            TimePoint(hour: 23, min: 31, dest: "武蔵小杉"),
+        ]
+
+        
         
         
         // Define the class with two Int fields: hour and min
