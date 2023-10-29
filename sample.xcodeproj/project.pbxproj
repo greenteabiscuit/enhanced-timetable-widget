@@ -22,6 +22,9 @@
 		59117A482AED784600A86CC7 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59117A472AED784600A86CC7 /* AppIntent.swift */; };
 		59117A4A2AED784800A86CC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59117A492AED784800A86CC7 /* Assets.xcassets */; };
 		59117A4E2AED784800A86CC7 /* enhanced-timetableExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 59117A3A2AED784600A86CC7 /* enhanced-timetableExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		59117AA92AEE32CE00A86CC7 /* entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59117AA82AEE32CE00A86CC7 /* entry.swift */; };
+		59117AAB2AEE332E00A86CC7 /* provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59117AAA2AEE332E00A86CC7 /* provider.swift */; };
+		59117AAD2AEE375C00A86CC7 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59117AAC2AEE375C00A86CC7 /* EntryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +85,9 @@
 		59117A472AED784600A86CC7 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		59117A492AED784800A86CC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59117A4B2AED784800A86CC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59117AA82AEE32CE00A86CC7 /* entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entry.swift; sourceTree = "<group>"; };
+		59117AAA2AEE332E00A86CC7 /* provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = provider.swift; sourceTree = "<group>"; };
+		59117AAC2AEE375C00A86CC7 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +198,9 @@
 				59117A412AED784600A86CC7 /* enhanced_timetableBundle.swift */,
 				59117A432AED784600A86CC7 /* enhanced_timetableLiveActivity.swift */,
 				59117A452AED784600A86CC7 /* enhanced_timetable.swift */,
+				59117AAC2AEE375C00A86CC7 /* EntryView.swift */,
+				59117AA82AEE32CE00A86CC7 /* entry.swift */,
+				59117AAA2AEE332E00A86CC7 /* provider.swift */,
 				59117A472AED784600A86CC7 /* AppIntent.swift */,
 				59117A492AED784800A86CC7 /* Assets.xcassets */,
 				59117A4B2AED784800A86CC7 /* Info.plist */,
@@ -386,10 +395,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59117AAB2AEE332E00A86CC7 /* provider.swift in Sources */,
 				59117A442AED784600A86CC7 /* enhanced_timetableLiveActivity.swift in Sources */,
 				59117A482AED784600A86CC7 /* AppIntent.swift in Sources */,
 				59117A422AED784600A86CC7 /* enhanced_timetableBundle.swift in Sources */,
+				59117AAD2AEE375C00A86CC7 /* EntryView.swift in Sources */,
 				59117A462AED784600A86CC7 /* enhanced_timetable.swift in Sources */,
+				59117AA92AEE32CE00A86CC7 /* entry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
