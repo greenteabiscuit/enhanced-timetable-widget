@@ -88,14 +88,6 @@ extension enhanced_timetable {
                 TimePoint(hour: 16, min: 38, dest: "横浜"),
 
                 TimePoint(hour: 17, min: 0, dest: "日吉"),
-                TimePoint(hour: 18, min: 27, dest: "日吉"),
-                TimePoint(hour: 18, min: 28, dest: "日吉"),
-                TimePoint(hour: 18, min: 29, dest: "日吉"),
-                TimePoint(hour: 18, min: 30, dest: "日吉"),
-                
-
-                TimePoint(hour: 20, min: 40, dest: "日吉"),
-                TimePoint(hour: 20, min: 41, dest: "日吉"),
                 
                 TimePoint(hour: 22, min: 39, dest: "日吉"),
                 TimePoint(hour: 23, min: 20, dest: "横浜"),
@@ -111,9 +103,7 @@ extension enhanced_timetable {
                 }
             }
             
-            // Default action
-            let additionalHours = (hour < 21) || (hour == 21 && minute <= 25) ? 3 : 5
-            return calendar.date(byAdding: .hour, value: additionalHours, to: date)!
+            return conditions[0].date
         }
     }
 }
