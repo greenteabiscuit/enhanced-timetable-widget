@@ -51,10 +51,55 @@ extension enhanced_timetable {
             
             let conditions: [TimePoint] = [
                 TimePoint(hour: 10, min: 50, dest: "日吉"),
+                // Add some TimePoint instances to the array
+                TimePoint(hour: 11, min: 02, dest: "白金高輪"),
+                TimePoint(hour: 11, min: 14, dest: "日吉"),
+                TimePoint(hour: 11, min: 26, dest: "白金高輪"),
+                TimePoint(hour: 11, min: 38, dest: "横浜"),
+                TimePoint(hour: 11, min: 50, dest: "日吉"),
 
-                TimePoint(hour: 21, min: 42, dest: "日吉"),
-                TimePoint(hour: 21, min: 43, dest: "日吉"),
-                TimePoint(hour: 21, min: 47, dest: "日吉"),
+                TimePoint(hour: 12, min: 02, dest: "白金高輪"),
+                TimePoint(hour: 12, min: 14, dest: "日吉"),
+                TimePoint(hour: 12, min: 26, dest: "白金高輪"),
+                TimePoint(hour: 12, min: 38, dest: "横浜"),
+                TimePoint(hour: 12, min: 50, dest: "日吉"),
+
+                TimePoint(hour: 13, min: 02, dest: "白金高輪"),
+                TimePoint(hour: 13, min: 14, dest: "日吉"),
+                TimePoint(hour: 13, min: 26, dest: "白金高輪"),
+                TimePoint(hour: 13, min: 38, dest: "横浜"),
+                TimePoint(hour: 13, min: 50, dest: "日吉"),
+                
+                TimePoint(hour: 14, min: 02, dest: "白金高輪"),
+                TimePoint(hour: 14, min: 14, dest: "日吉"),
+                TimePoint(hour: 14, min: 26, dest: "白金高輪"),
+                TimePoint(hour: 14, min: 38, dest: "横浜"),
+                TimePoint(hour: 14, min: 50, dest: "日吉"),
+
+                TimePoint(hour: 15, min: 02, dest: "白金高輪"),
+                TimePoint(hour: 15, min: 14, dest: "日吉"),
+                TimePoint(hour: 15, min: 26, dest: "白金高輪"),
+                TimePoint(hour: 15, min: 38, dest: "横浜"),
+                TimePoint(hour: 15, min: 50, dest: "日吉"),
+
+                TimePoint(hour: 16, min: 02, dest: "白金高輪"),
+                TimePoint(hour: 16, min: 14, dest: "日吉"),
+                TimePoint(hour: 16, min: 26, dest: "白金高輪"),
+                TimePoint(hour: 16, min: 38, dest: "横浜"),
+
+                TimePoint(hour: 17, min: 0, dest: "日吉"),
+                TimePoint(hour: 18, min: 27, dest: "日吉"),
+                TimePoint(hour: 18, min: 28, dest: "日吉"),
+                TimePoint(hour: 18, min: 29, dest: "日吉"),
+                TimePoint(hour: 18, min: 30, dest: "日吉"),
+                
+
+                TimePoint(hour: 20, min: 40, dest: "日吉"),
+                TimePoint(hour: 20, min: 41, dest: "日吉"),
+                
+                TimePoint(hour: 22, min: 39, dest: "日吉"),
+                TimePoint(hour: 23, min: 20, dest: "横浜"),
+                TimePoint(hour: 23, min: 58, dest: "白金高輪"),
             ]
             
             let hour = calendar.component(.hour, from: date)
