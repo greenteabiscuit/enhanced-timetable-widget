@@ -204,6 +204,9 @@ extension enhanced_timetable {
                     return condition.date
                 }
             }
+            if isFriday(date: date) {
+                return Provider.weekendSchedule[0].date
+            }
             
             return Provider.weekdaySchedule[0].date
         }
@@ -224,7 +227,23 @@ extension enhanced_timetable {
                 }
             }
             
+            if isFriday(date: date) {
+                return Provider.weekendSchedule[0].date
+            }
+            
             return Provider.weekdaySchedule[0].date
+        }
+        
+        func isFriday(date: Date) -> Bool {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.weekday], from: date)
+            
+            if let weekday = components.weekday {
+                // Friday is represented by 6
+                return weekday == 6
+            }
+            
+            return false
         }
 
         
@@ -240,7 +259,9 @@ extension enhanced_timetable {
                     return condition.date
                 }
             }
-            
+            if isSunday(date: date) {
+                return Provider.weekdaySchedule[0].date
+            }
             return weekendSchedule[0].date
         }
 
@@ -261,9 +282,23 @@ extension enhanced_timetable {
                 }
             }
             
+            if isSunday(date: date) {
+                return Provider.weekdaySchedule[0].date
+            }
+            
             return weekendSchedule[0].date
         }
 
-        
+        func isSunday(date: Date) -> Bool {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.weekday], from: date)
+            
+            if let weekday = components.weekday {
+                // Sunday is represented by 1
+                return weekday == 1
+            }
+            
+            return false
+        }
     }
 }
