@@ -205,7 +205,7 @@ extension enhanced_timetable {
                 }
             }
             if isFriday(date: date) {
-                return Provider.weekendSchedule[0].date
+                return Provider.weekendSchedule[0].date.addingTimeInterval(86400)
             }
             
             return Provider.weekdaySchedule[0].date
@@ -228,7 +228,7 @@ extension enhanced_timetable {
             }
             
             if isFriday(date: date) {
-                return Provider.weekendSchedule[0].date
+                return Provider.weekendSchedule[1].date.addingTimeInterval(86400)
             }
             
             return Provider.weekdaySchedule[0].date
@@ -260,7 +260,7 @@ extension enhanced_timetable {
                 }
             }
             if isSunday(date: date) {
-                return Provider.weekdaySchedule[0].date
+                return Provider.weekdaySchedule[0].date.addingTimeInterval(86400)
             }
             return weekendSchedule[0].date
         }
@@ -283,7 +283,7 @@ extension enhanced_timetable {
             }
             
             if isSunday(date: date) {
-                return Provider.weekdaySchedule[0].date
+                return Provider.weekdaySchedule[1].date.addingTimeInterval(86400)
             }
             
             return weekendSchedule[0].date
