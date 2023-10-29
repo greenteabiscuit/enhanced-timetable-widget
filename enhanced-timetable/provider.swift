@@ -9,6 +9,53 @@ import WidgetKit
 
 extension enhanced_timetable {
     struct Provider: TimelineProvider {
+        static var conditions: [TimePoint] = [
+            TimePoint(hour: 10, min: 50, dest: "日吉"),
+            // Add some TimePoint instances to the array
+            TimePoint(hour: 11, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 11, min: 14, dest: "日吉"),
+            TimePoint(hour: 11, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 11, min: 38, dest: "横浜"),
+            TimePoint(hour: 11, min: 50, dest: "日吉"),
+
+            TimePoint(hour: 12, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 12, min: 14, dest: "日吉"),
+            TimePoint(hour: 12, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 12, min: 38, dest: "横浜"),
+            TimePoint(hour: 12, min: 50, dest: "日吉"),
+
+            TimePoint(hour: 13, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 13, min: 14, dest: "日吉"),
+            TimePoint(hour: 13, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 13, min: 38, dest: "横浜"),
+            TimePoint(hour: 13, min: 50, dest: "日吉"),
+            
+            TimePoint(hour: 14, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 14, min: 14, dest: "日吉"),
+            TimePoint(hour: 14, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 14, min: 38, dest: "横浜"),
+            TimePoint(hour: 14, min: 50, dest: "日吉"),
+
+            TimePoint(hour: 15, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 15, min: 14, dest: "日吉"),
+            TimePoint(hour: 15, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 15, min: 38, dest: "横浜"),
+            TimePoint(hour: 15, min: 50, dest: "日吉"),
+
+            TimePoint(hour: 16, min: 02, dest: "白金高輪"),
+            TimePoint(hour: 16, min: 14, dest: "日吉"),
+            TimePoint(hour: 16, min: 26, dest: "白金高輪"),
+            TimePoint(hour: 16, min: 38, dest: "横浜"),
+
+            TimePoint(hour: 17, min: 0, dest: "日吉"),
+            
+            TimePoint(hour: 22, min: 39, dest: "日吉"),
+            TimePoint(hour: 23, min: 20, dest: "横浜"),
+            TimePoint(hour: 23, min: 58, dest: "白金高輪"),
+        ]
+
+        
+        
         // Define the class with two Int fields: hour and min
         class TimePoint {
             var hour: Int
@@ -50,124 +97,35 @@ extension enhanced_timetable {
         func getClosestTimepoint(date: Date) -> Date {
             let calendar = Calendar.current
             
-            let conditions: [TimePoint] = [
-                TimePoint(hour: 10, min: 50, dest: "日吉"),
-                // Add some TimePoint instances to the array
-                TimePoint(hour: 11, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 11, min: 14, dest: "日吉"),
-                TimePoint(hour: 11, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 11, min: 38, dest: "横浜"),
-                TimePoint(hour: 11, min: 50, dest: "日吉"),
-
-                TimePoint(hour: 12, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 12, min: 14, dest: "日吉"),
-                TimePoint(hour: 12, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 12, min: 38, dest: "横浜"),
-                TimePoint(hour: 12, min: 50, dest: "日吉"),
-
-                TimePoint(hour: 13, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 13, min: 14, dest: "日吉"),
-                TimePoint(hour: 13, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 13, min: 38, dest: "横浜"),
-                TimePoint(hour: 13, min: 50, dest: "日吉"),
-                
-                TimePoint(hour: 14, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 14, min: 14, dest: "日吉"),
-                TimePoint(hour: 14, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 14, min: 38, dest: "横浜"),
-                TimePoint(hour: 14, min: 50, dest: "日吉"),
-
-                TimePoint(hour: 15, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 15, min: 14, dest: "日吉"),
-                TimePoint(hour: 15, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 15, min: 38, dest: "横浜"),
-                TimePoint(hour: 15, min: 50, dest: "日吉"),
-
-                TimePoint(hour: 16, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 16, min: 14, dest: "日吉"),
-                TimePoint(hour: 16, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 16, min: 38, dest: "横浜"),
-
-                TimePoint(hour: 17, min: 0, dest: "日吉"),
-                
-                TimePoint(hour: 22, min: 39, dest: "日吉"),
-                TimePoint(hour: 23, min: 20, dest: "横浜"),
-                TimePoint(hour: 23, min: 58, dest: "白金高輪"),
-            ]
-            
             let hour = calendar.component(.hour, from: date)
             let minute = calendar.component(.minute, from: date)
             
-            for condition in conditions {
+            for condition in Provider.conditions {
                 if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
                     return condition.date
                 }
             }
             
-            return conditions[0].date
+            return Provider.conditions[0].date
         }
 
         func getSecondClosestTimepoint(date: Date) -> Date {
             let calendar = Calendar.current
             
-            let conditions: [TimePoint] = [
-                TimePoint(hour: 10, min: 50, dest: "日吉"),
-                // Add some TimePoint instances to the array
-                TimePoint(hour: 11, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 11, min: 14, dest: "日吉"),
-                TimePoint(hour: 11, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 11, min: 38, dest: "横浜"),
-                TimePoint(hour: 11, min: 50, dest: "日吉"),
-
-                TimePoint(hour: 12, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 12, min: 14, dest: "日吉"),
-                TimePoint(hour: 12, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 12, min: 38, dest: "横浜"),
-                TimePoint(hour: 12, min: 50, dest: "日吉"),
-
-                TimePoint(hour: 13, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 13, min: 14, dest: "日吉"),
-                TimePoint(hour: 13, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 13, min: 38, dest: "横浜"),
-                TimePoint(hour: 13, min: 50, dest: "日吉"),
-                
-                TimePoint(hour: 14, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 14, min: 14, dest: "日吉"),
-                TimePoint(hour: 14, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 14, min: 38, dest: "横浜"),
-                TimePoint(hour: 14, min: 50, dest: "日吉"),
-
-                TimePoint(hour: 15, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 15, min: 14, dest: "日吉"),
-                TimePoint(hour: 15, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 15, min: 38, dest: "横浜"),
-                TimePoint(hour: 15, min: 50, dest: "日吉"),
-
-                TimePoint(hour: 16, min: 02, dest: "白金高輪"),
-                TimePoint(hour: 16, min: 14, dest: "日吉"),
-                TimePoint(hour: 16, min: 26, dest: "白金高輪"),
-                TimePoint(hour: 16, min: 38, dest: "横浜"),
-
-                TimePoint(hour: 17, min: 0, dest: "日吉"),
-                
-                TimePoint(hour: 22, min: 39, dest: "日吉"),
-                TimePoint(hour: 23, min: 20, dest: "横浜"),
-                TimePoint(hour: 23, min: 58, dest: "白金高輪"),
-            ]
             
             let hour = calendar.component(.hour, from: date)
             let minute = calendar.component(.minute, from: date)
             
-            for (index, condition) in conditions.enumerated() {
+            for (index, condition) in Provider.conditions.enumerated() {
                 if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
                     // todo: I hate this nested if condition
-                    if (index + 1 < conditions.count) {
-                        return conditions[index + 1].date
+                    if (index + 1 < Provider.conditions.count) {
+                        return Provider.conditions[index + 1].date
                     }
                 }
             }
             
-            return conditions[0].date
+            return Provider.conditions[0].date
         }
 
     }
