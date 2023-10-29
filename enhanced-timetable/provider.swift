@@ -13,11 +13,14 @@ extension enhanced_timetable {
         class TimePoint {
             var hour: Int
             var min: Int
+            var date: Date
             var dest: String
             
             init(hour: Int, min: Int, dest: String) {
+                let today = Calendar.current.startOfDay(for: Date())
                 self.hour = hour
                 self.min = min
+                self.date = Calendar.current.date(bySettingHour: hour, minute: min, second: 0, of: today)!
                 self.dest = dest
             }
         }
@@ -45,21 +48,21 @@ extension enhanced_timetable {
         
         func getRandomDate(date: Date) -> Date {
             let calendar = Calendar.current
-            let today = calendar.startOfDay(for: Date())
             
-            let conditions: [(hour: Int, minute: Int, action: (Date) -> Date)] = [
-                (21, 26, { date in calendar.date(bySettingHour: calendar.component(.hour, from: date), minute: calendar.component(.minute, from: date), second: 0, of: today)! }),
-                (21, 27, { date in calendar.date(bySettingHour: calendar.component(.hour, from: date), minute: calendar.component(.minute, from: date), second: 0, of: today)! }),
-                (21, 28, { date in calendar.date(bySettingHour: calendar.component(.hour, from: date), minute: calendar.component(.minute, from: date), second: 0, of: today)! }),
-                // Add more conditions here
+            let conditions: [TimePoint] = [
+                TimePoint(hour: 10, min: 50, dest: "日吉"),
+
+                TimePoint(hour: 21, min: 42, dest: "日吉"),
+                TimePoint(hour: 21, min: 43, dest: "日吉"),
+                TimePoint(hour: 21, min: 47, dest: "日吉"),
             ]
             
             let hour = calendar.component(.hour, from: date)
             let minute = calendar.component(.minute, from: date)
             
             for condition in conditions {
-                if (hour < condition.hour) || (hour == condition.hour && minute < condition.minute) {
-                    return condition.action(date)
+                if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
+                    return condition.date
                 }
             }
             
