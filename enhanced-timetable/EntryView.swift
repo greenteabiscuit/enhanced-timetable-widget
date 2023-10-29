@@ -36,7 +36,9 @@ extension enhanced_timetable.EntryView {
                 .font(.system(size: 15))
             Text("\(entry.closestDate, formatter: Self.dateFormatter)")
         }
-        Text(Calendar.current.startOfDay(for: .now), style: .timer)
+        Text(entry.closestDate, style: .timer)
+            .font(.system(size: 30))
+
     }
 }
 
