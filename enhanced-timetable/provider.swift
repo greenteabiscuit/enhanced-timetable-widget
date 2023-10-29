@@ -9,7 +9,7 @@ import WidgetKit
 
 extension enhanced_timetable {
     struct Provider: TimelineProvider {
-        static var conditions: [TimePoint] = [
+        static var weekdaySchedule: [TimePoint] = [
             TimePoint(hour: 10, min: 50, dest: "日吉"),
             // Add some TimePoint instances to the array
             TimePoint(hour: 11, min: 02, dest: "白金高輪"),
@@ -100,13 +100,13 @@ extension enhanced_timetable {
             let hour = calendar.component(.hour, from: date)
             let minute = calendar.component(.minute, from: date)
             
-            for condition in Provider.conditions {
+            for condition in Provider.weekdaySchedule {
                 if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
                     return condition.date
                 }
             }
             
-            return Provider.conditions[0].date
+            return Provider.weekdaySchedule[0].date
         }
 
         func getSecondClosestTimepoint(date: Date) -> Date {
@@ -116,16 +116,16 @@ extension enhanced_timetable {
             let hour = calendar.component(.hour, from: date)
             let minute = calendar.component(.minute, from: date)
             
-            for (index, condition) in Provider.conditions.enumerated() {
+            for (index, condition) in Provider.weekdaySchedule.enumerated() {
                 if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
                     // todo: I hate this nested if condition
-                    if (index + 1 < Provider.conditions.count) {
-                        return Provider.conditions[index + 1].date
+                    if (index + 1 < Provider.weekdaySchedule.count) {
+                        return Provider.weekdaySchedule[index + 1].date
                     }
                 }
             }
             
-            return Provider.conditions[0].date
+            return Provider.weekdaySchedule[0].date
         }
 
     }
