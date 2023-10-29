@@ -44,34 +44,28 @@ extension enhanced_timetable {
         }
         
         func getRandomDate(date: Date) -> Date {
-            // Check the hour and minute to determine the string
-            let hour = Calendar.current.component(.hour, from: date)
-            let minute = Calendar.current.component(.minute, from: date)
-
-            if (hour < 21) || (hour == 21 && minute <= 15) {
-                let calendar = Calendar.current
-                let today = calendar.startOfDay(for: Date())
-                
-                return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: today)!
+            let calendar = Calendar.current
+            let today = calendar.startOfDay(for: Date())
+            
+            let conditions: [(hour: Int, minute: Int, action: (Date) -> Date)] = [
+                (21, 26, { date in calendar.date(bySettingHour: calendar.component(.hour, from: date), minute: calendar.component(.minute, from: date), second: 0, of: today)! }),
+                (21, 27, { date in calendar.date(bySettingHour: calendar.component(.hour, from: date), minute: calendar.component(.minute, from: date), second: 0, of: today)! }),
+                (21, 28, { date in calendar.date(bySettingHour: calendar.component(.hour, from: date), minute: calendar.component(.minute, from: date), second: 0, of: today)! }),
+                // Add more conditions here
+            ]
+            
+            let hour = calendar.component(.hour, from: date)
+            let minute = calendar.component(.minute, from: date)
+            
+            for condition in conditions {
+                if (hour < condition.hour) || (hour == condition.hour && minute < condition.minute) {
+                    return condition.action(date)
+                }
             }
             
-            if (hour < 21) || (hour == 21 && minute <= 16) {
-                let calendar = Calendar.current
-                let today = calendar.startOfDay(for: Date())
-                
-                return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: today)!
-            }
-            
-            if (hour < 21) || (hour == 21 && minute <= 17) {
-                let calendar = Calendar.current
-                let today = calendar.startOfDay(for: Date())
-                
-                return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: today)!
-            }
-            
-            let isBeforeTwentyFortySix = (hour < 21) || (hour == 21 && minute <= 18)
-            let randomString = isBeforeTwentyFortySix ? Calendar.current.date(byAdding: .hour, value: 3, to: date) : Calendar.current.date(byAdding: .hour, value: 5, to: date)
-            return randomString!
+            // Default action
+            let additionalHours = (hour < 21) || (hour == 21 && minute <= 25) ? 3 : 5
+            return calendar.date(byAdding: .hour, value: additionalHours, to: date)!
         }
         
         func getClosest(x: Date) -> Date {
