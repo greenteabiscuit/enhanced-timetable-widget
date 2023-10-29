@@ -28,7 +28,9 @@ extension enhanced_timetable {
 extension enhanced_timetable.EntryView {
     @ViewBuilder
     private var contentView: some View {
-        // Text("\(entry.date.adding(.second, value: 1), formatter: Self.dateFormatter)")
+        if let x = Calendar.current.date(byAdding: .second, value: 1, to: entry.date) {
+            Text("\(x, formatter: Self.dateFormatter)")
+        }
         // Text(entry.date.adding(.second, value: 1), style: .time)
         Text(Calendar.current.startOfDay(for: .now), style: .timer)
     }
