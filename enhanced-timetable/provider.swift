@@ -35,7 +35,8 @@ extension enhanced_timetable {
             let startDate = Calendar.current.date(byAdding: .second, value: -seconds, to: currentDate)!
             let entries = (0 ..< 60).map {
                 let date = Calendar.current.date(byAdding: .second, value: $0 * 60 - 1, to: startDate)!
-                let randomString = getRandomDate(date: date)
+                let otherDate = Calendar.current.date(byAdding: .second, value: $0 * 60, to: startDate)!
+                let randomString = getRandomDate(date: otherDate)
 
                 return Entry(date: date, closestDate: randomString)
             }
@@ -46,8 +47,29 @@ extension enhanced_timetable {
             // Check the hour and minute to determine the string
             let hour = Calendar.current.component(.hour, from: date)
             let minute = Calendar.current.component(.minute, from: date)
+
+            if (hour < 21) || (hour == 21 && minute <= 15) {
+                let calendar = Calendar.current
+                let today = calendar.startOfDay(for: Date())
+                
+                return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: today)!
+            }
             
-            let isBeforeTwentyFortySix = (hour < 21) || (hour == 21 && minute < 0)
+            if (hour < 21) || (hour == 21 && minute <= 16) {
+                let calendar = Calendar.current
+                let today = calendar.startOfDay(for: Date())
+                
+                return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: today)!
+            }
+            
+            if (hour < 21) || (hour == 21 && minute <= 17) {
+                let calendar = Calendar.current
+                let today = calendar.startOfDay(for: Date())
+                
+                return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: today)!
+            }
+            
+            let isBeforeTwentyFortySix = (hour < 21) || (hour == 21 && minute <= 18)
             let randomString = isBeforeTwentyFortySix ? Calendar.current.date(byAdding: .hour, value: 3, to: date) : Calendar.current.date(byAdding: .hour, value: 5, to: date)
             return randomString!
         }
