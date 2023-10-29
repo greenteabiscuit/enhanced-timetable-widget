@@ -88,7 +88,9 @@ extension enhanced_timetable {
                 }
                 return dates
             }()
-            let entries = weekdayOjikamiyaTimepoints.map {return Entry(date: $0)}
+            let entries = weekdayOjikamiyaTimepoints
+                .filter {return $0 > Date()}
+                .map {return Entry(date: $0)}
             
             completion(.init(entries: entries, policy: .atEnd))
         }
