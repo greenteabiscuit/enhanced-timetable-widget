@@ -23,6 +23,7 @@ extension enhanced_timetable {
     struct Entry: TimelineEntry {
         var date: Date = .now
         var closestDate: Date = .now
+        var secondClosestDate: Date = .now
     }
 }
 

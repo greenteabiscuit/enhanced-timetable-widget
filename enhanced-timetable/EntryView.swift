@@ -13,10 +13,18 @@ extension enhanced_timetable {
         let entry: Entry
 
         var body: some View {
-            VStack(alignment: .leading) {
-                Spacer()
-                contentView
-                Spacer()
+            HStack {
+                VStack(alignment: .leading) {
+                    Spacer()
+                    contentView
+                    Spacer()
+                }
+                VStack(alignment: .leading) {
+                    Text("次のダイヤ")
+                        .foregroundColor(.gray)
+                    Text("\(entry.secondClosestDate, formatter: Self.dateFormatter)")
+                        .foregroundColor(.gray)
+                }
             }
             .containerBackground(.clear, for: .widget)
         }
