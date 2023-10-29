@@ -35,15 +35,21 @@ extension enhanced_timetable {
             let startDate = Calendar.current.date(byAdding: .second, value: -seconds, to: currentDate)!
             let entries = (0 ..< 60).map {
                 let date = Calendar.current.date(byAdding: .second, value: $0 * 60 - 1, to: startDate)!
-                // Check the hour and minute to determine the string
-                let hour = Calendar.current.component(.hour, from: date)
-                let minute = Calendar.current.component(.minute, from: date)
-                
-                let isBeforeTwentyFortySix = (hour < 20) || (hour == 20 && minute < 48)
-                let randomString = isBeforeTwentyFortySix ? Calendar.current.date(byAdding: .hour, value: 3, to: date) : Calendar.current.date(byAdding: .hour, value: 5, to: date)
-                return Entry(date: date, closestDate: randomString!)
+                let randomString = getRandomDate(date: date)
+
+                return Entry(date: date, closestDate: randomString)
             }
             completion(.init(entries: entries, policy: .atEnd))
+        }
+        
+        func getRandomDate(date: Date) -> Date {
+            // Check the hour and minute to determine the string
+            let hour = Calendar.current.component(.hour, from: date)
+            let minute = Calendar.current.component(.minute, from: date)
+            
+            let isBeforeTwentyFortySix = (hour < 21) || (hour == 21 && minute < 0)
+            let randomString = isBeforeTwentyFortySix ? Calendar.current.date(byAdding: .hour, value: 3, to: date) : Calendar.current.date(byAdding: .hour, value: 5, to: date)
+            return randomString!
         }
         
         func getClosest(x: Date) -> Date {
