@@ -164,15 +164,36 @@ extension enhanced_timetable {
             let entries = (0 ..< 60).map {
                 let date = Calendar.current.date(byAdding: .second, value: $0 * 60 - 1, to: startDate)!
                 let otherDate = Calendar.current.date(byAdding: .second, value: $0 * 60, to: startDate)!
-                let closestTimepoint = getClosestTimepoint(date: otherDate)
+                if isWeekend(date: date) {
+                    // for weekend!
+                    let closestTimepoint = getClosestTimepointForWeekend(date: otherDate)
 
-                let secondClosestTimepoint = getSecondClosestTimepoint(date: otherDate)
+                    let secondClosestTimepoint = getSecondClosestTimepointForWeekend(date: otherDate)
+                    return Entry(date: date, closestDate: closestTimepoint, secondClosestDate: secondClosestTimepoint)
+                }
+                
+                // for weekday
+                let closestTimepoint = getClosestTimepointForWeekday(date: otherDate)
+
+                let secondClosestTimepoint = getSecondClosestTimepointForWeekday(date: otherDate)
                 return Entry(date: date, closestDate: closestTimepoint, secondClosestDate: secondClosestTimepoint)
             }
             completion(.init(entries: entries, policy: .atEnd))
         }
         
-        func getClosestTimepoint(date: Date) -> Date {
+        func isWeekend(date: Date) -> Bool {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.weekday], from: date)
+            
+            if let weekday = components.weekday {
+                // Sunday = 1, Saturday = 7, Weekdays = 2-6
+                return weekday == 1 || weekday == 7
+            }
+            
+            return false
+        }
+        
+        func getClosestTimepointForWeekday(date: Date) -> Date {
             let calendar = Calendar.current
             
             let hour = calendar.component(.hour, from: date)
@@ -187,7 +208,7 @@ extension enhanced_timetable {
             return Provider.weekdaySchedule[0].date
         }
 
-        func getSecondClosestTimepoint(date: Date) -> Date {
+        func getSecondClosestTimepointForWeekday(date: Date) -> Date {
             let calendar = Calendar.current
             
             
@@ -206,5 +227,43 @@ extension enhanced_timetable {
             return Provider.weekdaySchedule[0].date
         }
 
+        
+        func getClosestTimepointForWeekend(date: Date) -> Date {
+            let calendar = Calendar.current
+            
+            let hour = calendar.component(.hour, from: date)
+            let minute = calendar.component(.minute, from: date)
+            let weekendSchedule = Provider.weekendSchedule
+            
+            for condition in weekendSchedule {
+                if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
+                    return condition.date
+                }
+            }
+            
+            return weekendSchedule[0].date
+        }
+
+        func getSecondClosestTimepointForWeekend(date: Date) -> Date {
+            let calendar = Calendar.current
+            
+            
+            let hour = calendar.component(.hour, from: date)
+            let minute = calendar.component(.minute, from: date)
+            let weekendSchedule = Provider.weekendSchedule
+            
+            for (index, condition) in weekendSchedule.enumerated() {
+                if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
+                    // todo: I hate this nested if condition
+                    if (index + 1 < weekendSchedule.count) {
+                        return weekendSchedule[index + 1].date
+                    }
+                }
+            }
+            
+            return weekendSchedule[0].date
+        }
+
+        
     }
 }
