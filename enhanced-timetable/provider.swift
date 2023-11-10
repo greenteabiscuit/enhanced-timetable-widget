@@ -130,9 +130,6 @@ extension enhanced_timetable {
             TimePoint(hour: 23, min: 08, dest: "白金高輪"),
             TimePoint(hour: 23, min: 31, dest: "武蔵小杉"),
         ]
-
-        
-        
         
         // Define the class with two Int fields: hour and min
         class TimePoint {
@@ -149,6 +146,7 @@ extension enhanced_timetable {
                 self.dest = dest
             }
         }
+        
         func placeholder(in context: Context) -> Entry {
             .placeholder
         }
@@ -163,142 +161,69 @@ extension enhanced_timetable {
             let startDate = Calendar.current.date(byAdding: .second, value: -seconds, to: currentDate)!
             let entries = (0 ..< 60).map {
                 let date = Calendar.current.date(byAdding: .second, value: $0 * 60 - 1, to: startDate)!
-                let otherDate = Calendar.current.date(byAdding: .second, value: $0 * 60, to: startDate)!
-                if isWeekend(date: date) {
-                    // for weekend!
-                    let closestTimepoint = getClosestTimepointForWeekend(date: otherDate)
-
-                    let secondClosestTimepoint = getSecondClosestTimepointForWeekend(date: otherDate)
-                    return Entry(date: date, closestDate: closestTimepoint, secondClosestDate: secondClosestTimepoint)
-                }
-                
-                // for weekday
-                let closestTimepoint = getClosestTimepointForWeekday(date: otherDate)
-
-                let secondClosestTimepoint = getSecondClosestTimepointForWeekday(date: otherDate)
-                return Entry(date: date, closestDate: closestTimepoint, secondClosestDate: secondClosestTimepoint)
+                let (first, second) = getNextSchedule()
+                return Entry(date: date, closestDate: first, secondClosestDate: second)
             }
             completion(.init(entries: entries, policy: .atEnd))
         }
-        
-        func isWeekend(date: Date) -> Bool {
+
+        // func name: getNextSchedule
+        // input: None
+        // output: Date?, Date?
+        // description:
+        // 1. Get the current time
+        // 2. Get the current weekday
+        // 3. Get the current hour
+        // 4. Get the current minute
+        // 5. Call isWeekend by passing the current time
+        // 6. if result is true, enumerate through the weekendSchedule array until
+        // the difference between the current time and the time in the array is the least
+        // and the current time is still before the time in the array
+        // 7. if result is false, enumerate through the weekdaySchedule array until
+        // the difference between the current time and the time in the array is the least
+        // and the current time is still before the time in the array
+        // 8. return the time in the array and the time in the array after that
+        // if the time in the array is the last one, return nil for the second return value
+        // 9. If there is none, return nil
+        func getNextSchedule() -> (Date?, Date?) {
             let calendar = Calendar.current
-            let components = calendar.dateComponents([.weekday], from: date)
+            let now = Date()
+            
+            // Get the current hour and minute
+            let hour = calendar.component(.hour, from: now)
+            let minute = calendar.component(.minute, from: now)
+
+            // Get the current weekday
+            let components = calendar.dateComponents([.weekday], from: now)
             
             if let weekday = components.weekday {
                 // Sunday = 1, Saturday = 7, Weekdays = 2-6
-                return weekday == 1 || weekday == 7
-            }
-            
-            return false
-        }
-        
-        func getClosestTimepointForWeekday(date: Date) -> Date {
-            let calendar = Calendar.current
-            
-            let hour = calendar.component(.hour, from: date)
-            let minute = calendar.component(.minute, from: date)
-            
-            for condition in Provider.weekdaySchedule {
-                if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
-                    return condition.date
-                }
-            }
-            if isFriday(date: date) {
-                return Provider.weekendSchedule[0].date
-            }
-            
-            return Provider.weekdaySchedule[0].date
-        }
-
-        func getSecondClosestTimepointForWeekday(date: Date) -> Date {
-            let calendar = Calendar.current
-            
-            
-            let hour = calendar.component(.hour, from: date)
-            let minute = calendar.component(.minute, from: date)
-            
-            for (index, condition) in Provider.weekdaySchedule.enumerated() {
-                if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
-                    // todo: I hate this nested if condition
-                    if (index + 1 < Provider.weekdaySchedule.count) {
-                        return Provider.weekdaySchedule[index + 1].date
+                if weekday == 1 || weekday == 7 {
+                    // for weekend!
+                    let weekendSchedule = Provider.weekendSchedule
+                    for (index, condition) in weekendSchedule.enumerated() {
+                        if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
+                            if (index + 1 == weekendSchedule.count) {
+                                return (condition.date, nil)
+                            }
+                            return (condition.date, weekendSchedule[index + 1].date)
+                        }
+                    }
+                } else {
+                    // for weekday
+                    let weekdaySchedule = Provider.weekdaySchedule
+                    
+                    for (index, condition) in weekdaySchedule.enumerated() {
+                        if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
+                            if (index + 1 == weekdaySchedule.count) {
+                                return (condition.date, nil)
+                            }
+                            return (condition.date, weekdaySchedule[index + 1].date)
+                        }
                     }
                 }
             }
-            
-            if isFriday(date: date) {
-                return Provider.weekendSchedule[0].date
-            }
-            
-            return Provider.weekdaySchedule[0].date
-        }
-        
-        func isFriday(date: Date) -> Bool {
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.weekday], from: date)
-            
-            if let weekday = components.weekday {
-                // Friday is represented by 6
-                return weekday == 6
-            }
-            
-            return false
-        }
-
-        
-        func getClosestTimepointForWeekend(date: Date) -> Date {
-            let calendar = Calendar.current
-            
-            let hour = calendar.component(.hour, from: date)
-            let minute = calendar.component(.minute, from: date)
-            let weekendSchedule = Provider.weekendSchedule
-            
-            for condition in weekendSchedule {
-                if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
-                    return condition.date
-                }
-            }
-            if isSunday(date: date) {
-                return Provider.weekdaySchedule[0].date
-            }
-            return weekendSchedule[0].date
-        }
-
-        func getSecondClosestTimepointForWeekend(date: Date) -> Date {
-            let calendar = Calendar.current
-            
-            
-            let hour = calendar.component(.hour, from: date)
-            let minute = calendar.component(.minute, from: date)
-            let weekendSchedule = Provider.weekendSchedule
-            
-            for (index, condition) in weekendSchedule.enumerated() {
-                if (hour < condition.hour) || (hour == condition.hour && minute < condition.min) {
-                    // todo: I hate this nested if condition
-                    if (index + 1 < weekendSchedule.count) {
-                        return weekendSchedule[index + 1].date
-                    }
-                }
-            }
-            
-            if isSunday(date: date) {
-                return Provider.weekdaySchedule[0].date
-            }
-            
-            return weekendSchedule[0].date
-        }
-
-        func isSunday(date: Date) -> Bool {
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.weekday], from: date)
-            
-            if let weekday = components.weekday {
-                // Sunday is represented by 1
-                return weekday == 1
-            }
-            
-            return false
+            return (nil, nil)
         }
     }
 }

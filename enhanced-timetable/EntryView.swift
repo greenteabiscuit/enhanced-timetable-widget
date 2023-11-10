@@ -22,8 +22,14 @@ extension enhanced_timetable {
                 VStack(alignment: .leading) {
                     Text("次のダイヤ")
                         .foregroundColor(.gray)
-                    Text("\(entry.secondClosestDate, formatter: Self.dateFormatter)")
+                    if entry.secondClosestDate != nil {
+                        Text("\(entry.secondClosestDate!, formatter: Self.dateFormatter)")
                         .foregroundColor(.gray)
+                    } else {
+                        Text("本日は終了しました")
+                        .foregroundColor(.gray)
+                    }
+                        
                 }
             }
             .containerBackground(.clear, for: .widget)
@@ -42,11 +48,16 @@ extension enhanced_timetable.EntryView {
                 .frame(width: 20, height: 10)
             Text("王子神谷\n赤羽岩淵発")
                 .font(.system(size: 15))
-            Text("\(entry.closestDate, formatter: Self.dateFormatter)")
+            if entry.closestDate != nil {
+                Text("\(entry.closestDate!, formatter: Self.dateFormatter)")
+            } else {
+                Text("本日は終了しました")
+            }
         }
-        Text(entry.closestDate, style: .timer)
-            .font(.system(size: 30))
-
+        if entry.closestDate != nil {
+            Text(entry.closestDate!, style: .timer)
+                .font(.system(size: 30))
+        }
     }
 }
 
