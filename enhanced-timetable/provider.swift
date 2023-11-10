@@ -131,23 +131,6 @@ extension enhanced_timetable {
             TimePoint(hour: 23, min: 31, dest: "武蔵小杉"),
         ]
         
-        static var mondaySchedule = weekdaySchedule.map {TimePointWithDayOfWeek(hour: $0.hour, min: $0.min, dest: $0.dest, dayOfWeek: "Monday")}
-        
-        static var tuesdaySchedule = weekdaySchedule.map {TimePointWithDayOfWeek(hour: $0.hour, min: $0.min, dest: $0.dest, dayOfWeek: "Tuesday")}
-        
-        static var wednesdaySchedule = weekdaySchedule.map {TimePointWithDayOfWeek(hour: $0.hour, min: $0.min, dest: $0.dest, dayOfWeek: "Wednesday")}
-        
-        static var thursdaySchedule = weekdaySchedule.map {TimePointWithDayOfWeek(hour: $0.hour, min: $0.min, dest: $0.dest, dayOfWeek: "Thursday")}
-        
-        static var fridaySchedule = weekdaySchedule.map {TimePointWithDayOfWeek(hour: $0.hour, min: $0.min, dest: $0.dest, dayOfWeek: "Friday")}
-        
-        static var saturdaySchedule = weekendSchedule.map {TimePointWithDayOfWeek(hour: $0.hour, min: $0.min, dest: $0.dest, dayOfWeek: "Saturday")}
-        
-        static var sundaySchedule = weekendSchedule.map {TimePointWithDayOfWeek(hour: $0.hour, min: $0.min, dest: $0.dest, dayOfWeek: "Sunday")}
-        
-        static var weekSchedule = mondaySchedule + tuesdaySchedule + wednesdaySchedule + thursdaySchedule + fridaySchedule + saturdaySchedule + sundaySchedule
-        
-        
         // Define the class with two Int fields: hour and min
         class TimePoint {
             var hour: Int
@@ -161,48 +144,6 @@ extension enhanced_timetable {
                 self.min = min
                 self.date = Calendar.current.date(bySettingHour: hour, minute: min, second: 0, of: today)!
                 self.dest = dest
-            }
-        }
-        
-        // Define the class with two Int fields: hour and min
-        class TimePointWithDayOfWeek {
-            var hour: Int
-            var min: Int
-            var date: Date
-            var dest: String
-            private var _dayOfWeek: String
-            var dayOfWeek: String {
-                return _dayOfWeek
-            }
-            
-            init(hour: Int, min: Int, dest: String, dayOfWeek: String) {
-                let calendar = Calendar.current
-                let now = Date()
-                
-                // Get the current weekday index (1 = Sunday, 2 = Monday, ..., 7 = Saturday)
-                let currentWeekday = calendar.dateComponents([.weekday], from: now).weekday!
-                
-                // Convert the name to a weekday index
-                let weekdayIndex: Int
-                switch dayOfWeek.lowercased() {
-                case "sunday": weekdayIndex = 1
-                case "monday": weekdayIndex = 2
-                case "tuesday": weekdayIndex = 3
-                case "wednesday": weekdayIndex = 4
-                case "thursday": weekdayIndex = 5
-                case "friday": weekdayIndex = 6
-                case "saturday": weekdayIndex = 7
-                default: weekdayIndex = 1
-                }
-                // Calculate the number of days to add
-                let daysToAdd = weekdayIndex - currentWeekday
-                let day = calendar.date(byAdding: .day, value: daysToAdd, to: calendar.startOfDay(for: now))
-                
-                self.hour = hour
-                self.min = min
-                self.date = Calendar.current.date(bySettingHour: hour, minute: min, second: 0, of: day!)!
-                self.dest = dest
-                self._dayOfWeek = "Monday"
             }
         }
         
